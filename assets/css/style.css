@@ -54,3 +54,26 @@ h6 {
   background-color: black;
   color: white;
 }
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: black;
+    color: white;
+  }
+
+  ::selection {
+    background-color: white;
+    color: black;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  body {
+    background-color: white;
+    color: black;
+  }
+  ::selection {
+    background-color: black;
+    color: white;
+  }
+}
