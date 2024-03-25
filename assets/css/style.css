@@ -1,0 +1,56 @@
+/* ---------------------- */
+/* Comment Content        */
+/* ---------------------- */
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+
+:root {
+  --fs-400: 1rem;
+  --fw-regualar: 400;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+  font-size: var(--fs-400);
+}
+
+h1,
+h2 h3,
+h4,
+h5,
+h6 {
+  font-family: "Open Sans", sans-serif;
+}
+
+/* reminders */
+.container {
+  width: min(100% - 3rem, 1500px);
+  margin-inline: auto;
+}
+
+p {
+  max-width: 75ch;
+}
+
+h1 {
+  font-size: clamp(2rem, 1.75rem + 1.25vw, 3rem);
+  font-weight: 700;
+}
+
+h2 {
+  font-size: clamp(1.5rem, 1.25rem + 1.25vw, 2.5rem);
+  font-weight: 600;
+}
+
+h3,
+h4,
+h4,
+h5,
+h6 {
+  font-size: clamp(1.125rem, 0.9063rem + 1.0938vw, 2rem);
+  font-weight: 500;
+}
+
+::selection {
+  background-color: black;
+  color: white;
+}
