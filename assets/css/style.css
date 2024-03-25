@@ -71,35 +71,8 @@ fieldset [type="number"] {
   display: block;
 }
 
-.grid {
-  display: grid;
-  grid-template-columns: repeat(10, 1fr);
-  grid-template-rows: min-content 1fr;
-}
-
-.grid > textarea {
-  grid-row: 2/-1;
-}
-
-.grid > textarea:nth-of-type(1),
-.input-code-h2 {
-  grid-column: 1/4;
-}
-
-.grid > textarea:nth-of-type(2),
-.output-code-h2 {
-  grid-column: 6/9;
-}
-
 .convert {
-  justify-self: center;
-  align-self: center;
   padding: 0.125em 0.5em;
-  cursor: pointer;
-}
-
-.input-code-h2 {
-  grid-row: 1/1;
 }
 
 legend {
@@ -139,5 +112,38 @@ legend {
     background-color: black;
     color: white;
     border: none;
+  }
+}
+
+@media (width >= 600px) {
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    grid-template-rows: min-content 1fr;
+  }
+
+  .grid > textarea {
+    grid-row: 2/-1;
+  }
+
+  .grid > textarea:nth-of-type(1),
+  .input-code-h2 {
+    grid-column: 1/4;
+  }
+
+  .grid > textarea:nth-of-type(2),
+  .output-code-h2 {
+    grid-column: 6/9;
+  }
+
+  .convert {
+    justify-self: center;
+    align-self: center;
+    grid-column: 4/6;
+    cursor: pointer;
+  }
+
+  .input-code-h2 {
+    grid-row: 1/1;
   }
 }
