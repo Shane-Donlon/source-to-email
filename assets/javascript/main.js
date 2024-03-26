@@ -116,18 +116,18 @@ function working() {
   let emailBody = textAreaDocument.querySelectorAll("body > div > *");
   let emailContentArea = email.querySelector(".email-content");
   let font = document.querySelector(`#h1-font-family`);
-  let fontColor = document.querySelector(`#font-color`);
-  let styles = `font-family:${font.value}; color: ${fontColor.value};`;
+
+  let styles = `font-family:${font.value}; color: ${color};`;
   setFont(textAreaDocument, styles);
 
   list = textAreaDocument.querySelectorAll("body > *");
   list = [...list[0].children];
   list.forEach((item) => {
-    AddMarginPadding(item);
+    AddStyling(item);
     if (item.hasChildNodes()) {
       let b = [...item.children];
       b.forEach((child) => {
-        AddMarginPadding(child);
+        AddStyling(child);
       });
     }
 
@@ -164,7 +164,7 @@ function setFontChild(el, styles) {
   });
 }
 
-function AddMarginPadding(element) {
+function AddStyling(element) {
   let list = [
     `margin-top`,
     `margin-right`,
