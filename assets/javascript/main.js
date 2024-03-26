@@ -19,6 +19,7 @@ function removeClassList(element) {
 }
 
 function elementStyles(elementName, selectorType) {
+  selectorType = selectorType;
   let a = document.querySelector(
     `#${elementName.nodeName.toLowerCase()}-${selectorType}`
   );
@@ -80,23 +81,22 @@ function working() {
   removeClassList(textAreaDocument);
   list.forEach((htmlElement) => {
     removeClassList(htmlElement);
-    if (htmlElement != textAreaDocument.querySelector("div")) {
+    if (htmlElement.nodeName != "DIV") {
       htmlElement.remove();
     }
   });
 
-  list = textAreaDocument.querySelectorAll("body > *");
-  list = [...list[0].children];
-
-  let uniqueNodes = new Set(
-    list.map((node) => {
-      return node.nodeName.trim();
-    })
-  );
+  // let uniqueNodes = new Set(
+  //   list.map((node) => {
+  //     return node.nodeName.trim().toLowerCase();
+  //   })
+  // );
 
   let bgColor = document.querySelector("#body-background-color").value;
   let color = document.querySelector("#font-color").value;
+
   let title = textAreaDocument.querySelectorAll("h1");
+
   html = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
 <head>
@@ -110,39 +110,28 @@ function working() {
 </body>
   </html>`;
 
-  uniqueNodes.forEach((element) => {
-    let a = textAreaDocument.querySelectorAll(`${element}`);
-    a.forEach((element) => {
-      if (element.childNodes[0].nodeName === "A") {
-        let color = document.querySelector("#font-color");
-        let styles = `color:${color.value};`;
-        let links = element.childNodes[0];
-
-        links.style.cssText += styles;
-      }
-
-      elementStyles(element, "margin-top");
-      elementStyles(element, "margin-right");
-      elementStyles(element, "margin-bottom");
-      elementStyles(element, "margin-left");
-      elementStyles(element, "padding-top");
-      elementStyles(element, "padding-right");
-      elementStyles(element, "padding-bottom");
-      elementStyles(element, "padding-left");
-      elementStyles(element, "font-size");
-    });
-  });
   const finalParser = new DOMParser();
   const email = finalParser.parseFromString(html, "text/html");
-  let body = email.body;
-  // setColor(body, "body-background-color", "background-color");
-  // setColor(body, "font-color", "color");
 
   let emailBody = textAreaDocument.querySelectorAll("body > div > *");
   let emailContentArea = email.querySelector(".email-content");
-  setFont(textAreaDocument);
-  emailBody.forEach((el) => {
-    emailContentArea.append(el.outerHTML);
+  let font = document.querySelector(`#h1-font-family`);
+  let fontColor = document.querySelector(`#font-color`);
+  let styles = `font-family:${font.value}; color: ${fontColor.value};`;
+  setFont(textAreaDocument, styles);
+
+  list = textAreaDocument.querySelectorAll("body > *");
+  list = [...list[0].children];
+  list.forEach((item) => {
+    AddMarginPadding(item);
+    if (item.hasChildNodes()) {
+      let b = [...item.children];
+      b.forEach((child) => {
+        AddMarginPadding(child);
+      });
+    }
+
+    emailContentArea.append(item.outerHTML);
   });
 
   outputCode.innerHTML = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -150,22 +139,18 @@ function working() {
   clearTextAreaInput();
 }
 
-function setFont(documentType) {
-  let font = document.querySelector(`#h1-font-family`);
+function setFont(documentType, styles) {
   let body = documentType.querySelectorAll("body > *");
   body.forEach((el) => {
-    let styles = `font-family:${font.value};`;
     el.style.cssText += styles;
     if (el.hasChildNodes()) {
       el.childNodes.forEach((node) => {
-        setFontChild(node);
+        setFontChild(node, styles);
       });
     }
   });
 }
-function setFontChild(el) {
-  let font = document.querySelector(`#h1-font-family`);
-  const styles = `font-family:${font.value},sans-serif;`;
+function setFontChild(el, styles) {
   el.childNodes.forEach((node) => {
     const nodeHtml = node.outerHTML;
     if (nodeHtml != undefined) {
@@ -175,6 +160,39 @@ function setFontChild(el) {
           setFontChild(node);
         });
       }
+    }
+  });
+}
+
+function AddMarginPadding(element) {
+  let list = [
+    `margin-top`,
+    `margin-right`,
+    `margin-bottom`,
+    `margin-left`,
+    `padding-top`,
+    `padding-right`,
+    `padding-bottom`,
+    `padding-left`,
+    `font-family`,
+    `font-size`,
+    `font-weight`,
+  ];
+
+  let styles;
+  list.forEach((listItem) => {
+    let b = `#${element.nodeName.toLowerCase()}-${listItem}`;
+
+    if (document.body.contains(document.querySelector(b))) {
+      b = document.querySelector(b);
+
+      let isdigit = /\d/gi;
+      if (isdigit.test(b.value)) {
+        styles = `${listItem}:${b.value}px;`;
+      } else {
+        styles = `${listItem}:${b.value};`;
+      }
+      element.style.cssText += styles;
     }
   });
 }
