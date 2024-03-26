@@ -19,8 +19,6 @@ function removeClassList(element) {
 }
 
 function elementStyles(elementName, selectorType) {
-  //   console.log(elementName);
-
   let a = document.querySelector(
     `#${elementName.nodeName.toLowerCase()}-${selectorType}`
   );
@@ -30,6 +28,13 @@ function elementStyles(elementName, selectorType) {
     if (+a > 0) {
       const styles = `${selectorType}:${a}px;`;
       elementName.style.cssText += styles;
+      if (elementName.hasChildNodes()) {
+        elementName.childNodes.forEach((element) => {
+          if (element.outerHTML != undefined) {
+            elementStyles(element, selectorType);
+          }
+        });
+      }
     }
   }
 
