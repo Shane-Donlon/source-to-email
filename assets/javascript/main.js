@@ -43,9 +43,9 @@ function setColor(externalDocument, idString, type) {
 
   body.style.cssText += styles;
   let container = body.querySelector(":first-child");
-  container.style.width = "75%";
-  container.style.maxWidth = "600";
-  container.style.margin = "0 auto";
+  // container.style.width = "75%";
+  // container.style.maxWidth = "600";
+  // container.style.margin = "0 auto";
   // container.style.border = `2px solid ${color}`;
   // container.style.borderRadius = "5px";
   container.style.padding = "16px";
@@ -89,6 +89,8 @@ function working() {
     })
   );
 
+  let bgColor = document.querySelector("#body-background-color").value;
+  let color = document.querySelector("#font-color").value;
   html = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -96,8 +98,8 @@ function working() {
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-<body>
-<table class="body"> <tr> <td class="center" align="center" valign="top"> <center> <table class="container"> <tr> <td class="email-content"></td> </tr> </table> </center> </td> </tr> </table>
+<body style="width: 100%;margin:0;padding:0; background-color:${bgColor}; color:${color}" >
+<table class="body" style="background-color:${bgColor}; color:${color};width: 100%;margin:0;padding:0;"> <tr> <td class="center" align="center" valign="top"> <center> <table class="container" style="width:80%;max-width:600px; margin-left:auto; margin-right:auto;" > <tr> <td class="email-content"></td> </tr> </table> </center> </td> </tr> </table>
 </body>
   </html>`;
 
@@ -126,8 +128,8 @@ function working() {
   const finalParser = new DOMParser();
   const email = finalParser.parseFromString(html, "text/html");
   let body = email.body;
-  setColor(body, "body-background-color", "background-color");
-  setColor(body, "font-color", "color");
+  // setColor(body, "body-background-color", "background-color");
+  // setColor(body, "font-color", "color");
 
   let emailBody = textAreaDocument.querySelectorAll("body > div > *");
   let emailContentArea = email.querySelector(".email-content");
