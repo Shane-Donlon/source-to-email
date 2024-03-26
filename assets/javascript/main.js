@@ -135,7 +135,7 @@ function working() {
 
   let emailBody = textAreaDocument.querySelectorAll("body > div > *");
   let emailContentArea = email.querySelector(".email-content");
-
+  setFont(textAreaDocument);
   emailBody.forEach((el) => {
     emailContentArea.append(el.outerHTML);
   });
@@ -143,4 +143,33 @@ function working() {
   outputCode.innerHTML = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
   ${email.documentElement.outerHTML}`;
   clearTextAreaInput();
+}
+
+function setFont(documentType) {
+  let font = document.querySelector(`#h1-font-family`);
+  let body = documentType.querySelectorAll("body > *");
+  body.forEach((el) => {
+    let styles = `font-family:${font.value};`;
+    el.style.cssText += styles;
+    if (el.hasChildNodes()) {
+      el.childNodes.forEach((node) => {
+        setFontChild(node);
+      });
+    }
+  });
+}
+function setFontChild(el) {
+  let font = document.querySelector(`#h1-font-family`);
+  const styles = `font-family:${font.value},sans-serif;`;
+  el.childNodes.forEach((node) => {
+    const nodeHtml = node.outerHTML;
+    if (nodeHtml != undefined) {
+      node.style.cssText += styles;
+      if (node.hasChildNodes()) {
+        node.childNodes.forEach((node) => {
+          setFontChild(node);
+        });
+      }
+    }
+  });
 }
