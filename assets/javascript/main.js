@@ -1,5 +1,4 @@
-const btn = document.querySelector(".convert");
-
+let btn = document.querySelector(".convert");
 let outputCode = document.querySelector("#output-code");
 
 let html;
@@ -98,14 +97,14 @@ function working() {
   let title = textAreaDocument.querySelectorAll("h1");
 
   html = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" margin:0;padding:0; background-color:${bgColor}; color:${color}>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>${title[0].textContent}</title>
 </head>
-<body style="width: 100%;margin:0;padding:0; background-color:${bgColor}; color:${color}" >
+<body style="margin:0;padding:0; background-color:${bgColor}; color:${color}" >
 <table role="presentation" class="body" style="background-color:${bgColor}; color:${color};width: 100%;margin:0;padding:0;"> <tr> <td class="center" align="center" valign="top"> <center> <table role="presentation"  class="container" style="width:80%;max-width:600px; margin-left:auto; margin-right:auto;" > <tr> <td class="email-content"></td> </tr> </table> </center> </td> </tr> </table>
 </body>
   </html>`;
@@ -177,6 +176,7 @@ function AddStyling(element) {
     `font-family`,
     `font-size`,
     `font-weight`,
+    `line-height`,
   ];
 
   let styles;
@@ -187,7 +187,11 @@ function AddStyling(element) {
       b = document.querySelector(b);
 
       let isdigit = /\d/gi;
-      if (isdigit.test(b.value)) {
+      if (
+        isdigit.test(b.value) &&
+        listItem != "line-height" &&
+        listItem != "font-weight"
+      ) {
         styles = `${listItem}:${b.value}px;`;
       } else {
         styles = `${listItem}:${b.value};`;
@@ -195,4 +199,8 @@ function AddStyling(element) {
       element.style.cssText += styles;
     }
   });
+}
+
+function getFooterLinks() {
+  // this will be an input and will append footer links background colour options
 }
