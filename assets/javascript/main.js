@@ -55,13 +55,13 @@ function setColor(externalDocument, idString, type) {
   // container.style.borderRadius = "5px";
   container.style.padding = "16px";
 
-  if (body.contains(body.querySelector("a"))) {
-    styles = `color:${color};`;
-    let links = body.querySelectorAll("a");
-    links.forEach((link) => {
-      link.style.cssText += styles;
-    });
-  }
+  // if (body.contains(body.querySelector("a"))) {
+  //   styles = `color:${color};`;
+  //   let links = body.querySelectorAll("a");
+  //   links.forEach((link) => {
+  //     link.style.cssText += styles;
+  //   });
+  // }
 }
 
 function clearTextAreaInput() {
@@ -117,7 +117,7 @@ function working() {
   let font = document.querySelector(`#h1-font-family`);
 
   let styles = `font-family:${font.value}; color: ${color};`;
-  setFont(textAreaDocument, styles);
+  // setFont(textAreaDocument, styles);
 
   list = textAreaDocument.querySelectorAll("body > *");
   list = [...list[0].children];
@@ -177,6 +177,7 @@ function AddStyling(element) {
     `font-size`,
     `font-weight`,
     `line-height`,
+    `color`,
   ];
 
   let styles;
@@ -190,7 +191,8 @@ function AddStyling(element) {
       if (
         isdigit.test(b.value) &&
         listItem != "line-height" &&
-        listItem != "font-weight"
+        listItem != "font-weight" &&
+        listItem != "color"
       ) {
         styles = `${listItem}:${b.value}px;`;
       } else {
@@ -204,3 +206,7 @@ function AddStyling(element) {
 function getFooterLinks() {
   // this will be an input and will append footer links background colour options
 }
+
+function LocalStorageSettings() {}
+
+function LocalStorageSettingsSave() {}
