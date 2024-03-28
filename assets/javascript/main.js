@@ -15,6 +15,10 @@ inputs.forEach((input) => {
 });
 
 let html;
+resetLocalStorageBtn.addEventListener("click", (e) => {
+  clearLocalStorage();
+  location.reload();
+});
 btn.addEventListener("click", (e) => {
   let textArea = document.querySelector("#input-code");
   let regex = /<body[^>]*>([\w|\W]*)<\/body>/im;
@@ -628,5 +632,3 @@ function clearLocalStorage() {
     }
   });
 }
-
-clearLocalStorage();
