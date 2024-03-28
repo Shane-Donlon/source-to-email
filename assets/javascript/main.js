@@ -1,6 +1,18 @@
 let btn = document.querySelector(".convert");
 let outputCode = document.querySelector("#output-code");
 
+let inputs = document.querySelectorAll("label + *");
+
+inputs.forEach((input) => {
+  input.addEventListener("input", (e) => {
+    let id = `#${e.target.id}`;
+    if (e.target.validity.valid && e.target.value != "") {
+      localStorage.setItem("status", "updated");
+      localStorage.setItem(id, `${e.target.value}`);
+    }
+  });
+});
+
 let html;
 btn.addEventListener("click", (e) => {
   let textArea = document.querySelector("#input-code");
@@ -207,6 +219,35 @@ function getFooterLinks() {
   // this will be an input and will append footer links background colour options
 }
 
-function LocalStorageSettings() {}
+function LocalStorageSettings(id, value) {
+  id = `${id}`;
+  value = `${value}`;
+  localStorage.setItem("status", "updated");
+  localStorage.setItem(id, `${e.target.value}`);
+}
 
 function LocalStorageSettingsSave() {}
+
+window.addEventListener("DOMContentLoaded", (e) => {
+  Object.keys(localStorage).forEach((key) => {
+    if (localStorage.getItem(key) != "updated") {
+      if (document.body.contains(document.querySelector(key))) {
+        let input = document.querySelector(key);
+        input.value = localStorage.getItem(key);
+      }
+    }
+  });
+});
+
+function clearLocalStorage() {
+  Object.keys(localStorage).forEach((key) => {
+    if (
+      localStorage.getItem(key) === "updated" ||
+      document.body.contains(document.querySelector(key))
+    ) {
+      localStorage.removeItem(key);
+    }
+  });
+}
+
+// clearLocalStorage();
