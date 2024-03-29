@@ -125,7 +125,7 @@ function working() {
   // <table role="presentation" class="body" style="background-color:${bgColor}; color:${color};width: 100%;margin:0;padding:0;"> <tr> <td class="center" align="center" valign="top"> <center> <table role="presentation"  class="container" style="width:80%;max-width:600px; margin-left:auto; margin-right:auto;" > <tr> <td class="email-content"></td> </tr> </table> </center> </td> </tr> </table>
   // </body>
   //   </html>`;
-
+  let preheader = document.querySelector("#preheader").textContent;
   html = `<!DOCTYPE html>
   <html
     lang="en"
@@ -451,8 +451,7 @@ function working() {
             <div class="content">
               <!-- START CENTERED WHITE CONTAINER -->
               <span class="preheader"
-                >This is preheader text. Some clients will show this text as a
-                preview.</span
+                >${preheader}</span
               >
               <table
                 role="presentation"
