@@ -525,13 +525,34 @@ function working() {
         );
       });
     }
-    setFont(textAreaDocument, `color: ${linkcolor};`, "a");
+    setLink(textAreaDocument, `color: ${linkcolor};`, "a");
     emailContentArea.append(item.outerHTML);
   });
 
   outputCode.innerHTML = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
   ${email.documentElement.outerHTML}`;
   clearTextAreaInput();
+}
+
+function setLink(documentType, styles, selectorType) {
+  let body = documentType.querySelectorAll(`${selectorType}`);
+  body.forEach((el) => {
+    el.style.cssText += styles;
+    if (el.hasChildNodes()) {
+      el.childNodes.forEach((node) => {
+        console.log(node.nodeName.toLowerCase());
+        if (
+          documentType.contains(
+            documentType.querySelector(`${node.nodeName.toLowerCase()}`)
+          )
+        ) {
+          documentType.querySelector(
+            `${node.nodeName.toLowerCase()}`
+          ).style.cssText += styles;
+        }
+      });
+    }
+  });
 }
 
 function setFont(documentType, styles, selectorType) {
