@@ -58,29 +58,6 @@ function elementStyles(elementName, selectorType) {
   //   console.log(elementName);
 }
 
-function setColor(externalDocument, idString, type) {
-  let color = document.querySelector(`#${idString}`).value;
-  let styles = `${type}:${color};`;
-  let body = externalDocument;
-
-  body.style.cssText += styles;
-  let container = body.querySelector(":first-child");
-  // container.style.width = "75%";
-  // container.style.maxWidth = "600";
-  // container.style.margin = "0 auto";
-  // container.style.border = `2px solid ${color}`;
-  // container.style.borderRadius = "5px";
-  container.style.padding = "16px";
-
-  // if (body.contains(body.querySelector("a"))) {
-  //   styles = `color:${color};`;
-  //   let links = body.querySelectorAll("a");
-  //   links.forEach((link) => {
-  //     link.style.cssText += styles;
-  //   });
-  // }
-}
-
 function clearTextAreaInput() {
   let textArea = document.querySelector("#input-code");
   textArea.value = "";
@@ -102,12 +79,6 @@ function working() {
     }
   });
 
-  // let uniqueNodes = new Set(
-  //   list.map((node) => {
-  //     return node.nodeName.trim().toLowerCase();
-  //   })
-  // );
-
   let bgColor = document.querySelector("#body-background-color").value;
   let color = document.querySelector("#font-color").value;
   let linkcolor = document.querySelector("#a-color").value;
@@ -125,6 +96,7 @@ function working() {
   // <table role="presentation" class="body" style="background-color:${bgColor}; color:${color};width: 100%;margin:0;padding:0;"> <tr> <td class="center" align="center" valign="top"> <center> <table role="presentation"  class="container" style="width:80%;max-width:600px; margin-left:auto; margin-right:auto;" > <tr> <td class="email-content"></td> </tr> </table> </center> </td> </tr> </table>
   // </body>
   //   </html>`;
+
   let preheader = document.querySelector("#preheader").textContent;
   html = `<!DOCTYPE html>
   <html
@@ -535,6 +507,17 @@ function working() {
 }
 
 function setLink(documentType, styles, selectorType) {
+  /**
+   * Applies styles to elements selected by a CSS selector in a given document.
+   *
+   * This function takes a document, a styles string, and a CSS selector as arguments.
+   * It selects all elements in the document that match the selector, and appends the
+   * styles string to the existing styles of each selected element and its child nodes.
+   *
+   * @param {Document} documentType - The document in which to select elements.
+   * @param {string} styles - The styles to append to the selected elements.
+   * @param {string} selectorType - The CSS selector to use to select elements.
+   */
   let body = documentType.querySelectorAll(`${selectorType}`);
   body.forEach((el) => {
     el.style.cssText += styles;
@@ -566,6 +549,15 @@ function setFont(documentType, styles, selectorType) {
   });
 }
 function setFontChild(el, styles) {
+  /**
+   * Sets the font styles for a child element.
+   *
+   * This function takes a parent element and a styles object as arguments.
+   * It applies the styles from the styles object to the child elements of the parent.
+   *
+   * @param {HTMLElement} el - The parent HTML element.
+   * @param {Object} styles - The styles to apply to the child elements.
+   */
   el.childNodes.forEach((node) => {
     const nodeHtml = node.outerHTML;
     if (nodeHtml != undefined) {
@@ -600,7 +592,7 @@ function AddStyling(element) {
     let b = `#${element.nodeName.toLowerCase()}-${listItem}`;
     if (document.body.contains(document.querySelector(b))) {
       b = document.querySelectorAll(b);
-
+      // is digit is used to determine if it should be px or not
       let isdigit = /\d/gi;
       if (
         isdigit.test(b.value) &&
@@ -624,6 +616,15 @@ function getFooterLinks() {
 }
 
 function LocalStorageSettings(id, value) {
+  /**
+   * Function to set a value in localStorage.
+   *
+   * This function takes an id and a value as arguments. It uses the id as the key
+   * and the value as the value to set an item in localStorage.
+   *
+   * @param {string} id - The id to use as the key in localStorage.
+   * @param {string} value - The value to set in localStorage.
+   */
   id = `${id}`;
   value = `${value}`;
   localStorage.setItem("status", "updated");
@@ -633,6 +634,13 @@ function LocalStorageSettings(id, value) {
 function LocalStorageSettingsSave() {}
 
 window.addEventListener("DOMContentLoaded", (e) => {
+  /**
+   * Event listener for the DOMContentLoaded event.
+   *
+   * It iterates over all keys in localStorage. If the value of a key is not "updated" and
+   * an element with the key as its selector exists in the document,
+   * it sets the value of the input field to the value from localStorage.
+   */
   Object.keys(localStorage).forEach((key) => {
     if (localStorage.getItem(key) != "updated") {
       if (document.body.contains(document.querySelector(key))) {
@@ -644,6 +652,13 @@ window.addEventListener("DOMContentLoaded", (e) => {
 });
 
 function clearLocalStorage() {
+  /**
+   * Function to clear all items from this site in localStorage.
+   *
+   * This function iterates over all keys in localStorage. If the value of a key is "updated"
+   * or an element with the key as its selector exists in the document,
+   * it removes the key-value pair from localStorage.
+   */
   Object.keys(localStorage).forEach((key) => {
     if (
       localStorage.getItem(key) === "updated" ||
