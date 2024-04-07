@@ -110,9 +110,9 @@ function working() {
 
   let bgColor = document.querySelector("#body-background-color").value;
   let color = document.querySelector("#font-color").value;
-
+  let linkcolor = document.querySelector("#a-color").value;
   let title = textAreaDocument.querySelectorAll("h1");
-
+  let font = document.querySelector(`#font-family`);
   //   html = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
   // <html xmlns="http://www.w3.org/1999/xhtml" lang="en" margin:0;padding:0; background-color:${bgColor}; color:${color}>
   // <head>
@@ -139,7 +139,7 @@ function working() {
       <!--[if !mso]><!-->
       <meta http-equiv="X-UA-Compatible" content="IE=edge" />
       <!--<![endif]-->
-      <title></title>
+      <title>Codú weekly newsletter</title>
   
       <style media="all" type="text/css">
         /* -------------------------------------
@@ -147,10 +147,9 @@ function working() {
     ------------------------------------- */
   
         body {
-          font-family: Helvetica, sans-serif;
+       
           -webkit-font-smoothing: antialiased;
-          font-size: 16px;
-          line-height: 1.3;
+
           -ms-text-size-adjust: 100%;
           -webkit-text-size-adjust: 100%;
         }
@@ -163,8 +162,7 @@ function working() {
         }
   
         table td {
-          font-family: Helvetica, sans-serif;
-          font-size: 16px;
+
           vertical-align: top;
         }
         /* -------------------------------------
@@ -229,16 +227,8 @@ function working() {
         TYPOGRAPHY
     ------------------------------------- */
   
-        p {
-          font-family: Helvetica, sans-serif;
-          font-size: 16px;
-          font-weight: normal;
-          margin: 0;
-          margin-bottom: 16px;
-        }
-  
         a {
-         
+         color:${linkcolor};
           text-decoration: underline;
         }
         /* -------------------------------------
@@ -459,6 +449,7 @@ function working() {
                 cellpadding="0"
                 cellspacing="0"
                 class="main"
+                style="padding-left: 16px; padding-right:16px padding-top:16px; padding-bottom:16px;"
               >
                 <!-- START MAIN CONTENT AREA -->
                 <tr>
@@ -477,18 +468,19 @@ function working() {
                   cellspacing="0"
                 >
                   <tr>
-                    <td class="content-block">
+                    <td class="content-block" style="padding-bottom:16px;">
                       <span class="apple-link"
-                        >Company Inc, 7-11 Commercial Ct, Belfast BT1 2NB</span
+                        ></span
                       >
                       <br />
-                      Don't like these emails?
-                      <a href="">Unsubscribe</a>.
+                     
+                      <p style="color: ${color}; font-family:${font.value};">If you don't want to receive future editions of Codú Weekly</p>
+                      <a href="[unsubscribe]" style="display:block; padding-bottom:16px; color:${linkcolor}; font-family:${font.value}">Click here to unsubscribe</a>
                     </td>
                   </tr>
                   <tr>
                     <td class="content-block powered-by">
-                      Powered by <a href="">HTMLemail.io</a>
+                      
                     </td>
                   </tr>
                 </table>
@@ -509,21 +501,31 @@ function working() {
   const email = finalParser.parseFromString(html, "text/html");
 
   let emailContentArea = email.querySelector(".email-content");
-  let font = document.querySelector(`#h1-font-family`);
 
-  setFont(textAreaDocument, `font-family:${font.value};`);
+  setFont(textAreaDocument, `font-family:${font.value}; color: ${color};`);
 
   list = textAreaDocument.querySelectorAll("body > *");
   list = [...list[0].children];
   list.forEach((item) => {
     AddStyling(item);
+
+    setFont(
+      textAreaDocument,
+      `font-family:${font.value}; color: ${color};`,
+      item.nodeName.toLowerCase()
+    );
     if (item.hasChildNodes()) {
       let b = [...item.children];
       b.forEach((child) => {
         AddStyling(child);
+        setFont(
+          textAreaDocument,
+          `font-family:${font.value}; color: ${color};`,
+          child.nodeName.toLowerCase()
+        );
       });
     }
-
+    setFont(textAreaDocument, `color: ${linkcolor};`, "a");
     emailContentArea.append(item.outerHTML);
   });
 
@@ -532,8 +534,8 @@ function working() {
   clearTextAreaInput();
 }
 
-function setFont(documentType, styles) {
-  let body = documentType.querySelectorAll("body > *");
+function setFont(documentType, styles, selectorType) {
+  let body = documentType.querySelectorAll(`${selectorType}`);
   body.forEach((el) => {
     el.style.cssText += styles;
     if (el.hasChildNodes()) {
@@ -567,7 +569,6 @@ function AddStyling(element) {
     `padding-right`,
     `padding-bottom`,
     `padding-left`,
-    `font-family`,
     `font-size`,
     `font-weight`,
     `line-height`,
@@ -577,9 +578,8 @@ function AddStyling(element) {
   let styles;
   list.forEach((listItem) => {
     let b = `#${element.nodeName.toLowerCase()}-${listItem}`;
-
     if (document.body.contains(document.querySelector(b))) {
-      b = document.querySelector(b);
+      b = document.querySelectorAll(b);
 
       let isdigit = /\d/gi;
       if (
@@ -591,6 +591,8 @@ function AddStyling(element) {
         styles = `${listItem}:${b.value}px;`;
       } else {
         styles = `${listItem}:${b.value};`;
+      }
+      if (listItem === "color") {
       }
       element.style.cssText += styles;
     }
