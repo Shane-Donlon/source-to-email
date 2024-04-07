@@ -540,7 +540,6 @@ function setLink(documentType, styles, selectorType) {
     el.style.cssText += styles;
     if (el.hasChildNodes()) {
       el.childNodes.forEach((node) => {
-        console.log(node.nodeName.toLowerCase());
         if (
           documentType.contains(
             documentType.querySelector(`${node.nodeName.toLowerCase()}`)
