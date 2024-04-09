@@ -61,7 +61,7 @@
       <section class="section-grid">
         <details>
           <summary>Preheader preview display</summary>
-          <label for="preheader"> Preheader </label>
+          <label for="preheader" class="preheader-label"> Preheader </label>
           <textarea cols="30" id="preheader" name="preheader" rows="10">
 Welcome this this weeks newsletter</textarea
           >
@@ -575,8 +575,11 @@ Welcome this this weeks newsletter</textarea
             />
             <label for="font-family"> font-family </label>
             <select id="font-family" name="font-family">
-              <option value="arial">Arial</option>
-              <option value="'Times New Roman'">Times New Roman</option>
+              <option value="Arial, Helvetica, sans-serif" selected="selected">
+                Arial
+              </option>
+              <option value="Times, serif">Times New Roman</option>
+              <!-- <option value="'Times New Roman'">Times New Roman</option> -->
             </select>
           </fieldset>
         </details>
