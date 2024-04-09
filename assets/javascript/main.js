@@ -399,7 +399,7 @@ function working() {
         </noscript>
       <![endif]-->
     </head>
-    <body>
+    <body style="margin:0;padding:0; background-color:${bgColor}; color:${color}" >
       <table
         role="presentation"
         border="0"
@@ -497,7 +497,11 @@ function working() {
         );
       });
     }
-    setLink(textAreaDocument, `color: ${linkcolor};`, "a");
+    setLink(
+      textAreaDocument,
+      `color: ${linkcolor}; text-decoration: underline;`,
+      "a"
+    );
     emailContentArea.append(item.outerHTML);
   });
 
@@ -522,16 +526,8 @@ function setLink(documentType, styles, selectorType) {
   body.forEach((el) => {
     el.style.cssText += styles;
     if (el.hasChildNodes()) {
-      el.childNodes.forEach((node) => {
-        if (
-          documentType.contains(
-            documentType.querySelector(`${node.nodeName.toLowerCase()}`)
-          )
-        ) {
-          documentType.querySelector(
-            `${node.nodeName.toLowerCase()}`
-          ).style.cssText += styles;
-        }
+      documentType.querySelectorAll(`${selectorType} > *`).forEach((node) => {
+        node.style.cssText += styles;
       });
     }
   });
