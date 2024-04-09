@@ -114,6 +114,14 @@ legend {
   margin-top: 3em;
 }
 
+.preheader-label {
+  display: block;
+}
+
+#preheader {
+  padding-inline: 1em;
+}
+
 @media (prefers-color-scheme: light) {
   body {
     background-color: white;
