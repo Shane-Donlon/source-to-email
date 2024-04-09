@@ -86,7 +86,7 @@ legend {
 
 .section-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
   align-items: end;
   gap: 1em;
 }
@@ -108,6 +108,10 @@ legend {
     color: black;
     border: none;
   }
+}
+
+.btn-reset-local-storage {
+  margin-top: 3em;
 }
 
 @media (prefers-color-scheme: light) {
