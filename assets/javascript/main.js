@@ -425,7 +425,10 @@ function working() {
               >
                 <!-- START MAIN CONTENT AREA -->
                 <tr>
-                  <td class="wrapper email-content"></td>
+                
+                  <td class="wrapper email-content">
+                  <a href="[read_only_href_only]" style="display:block; padding-bottom:16px; color:${linkcolor}; font-family:${font.value}">Read Online</a>
+                  </td>
                 </tr>
   
                 <!-- END MAIN CONTENT AREA -->
@@ -447,7 +450,7 @@ function working() {
                       <br />
                      
                       <p style="color: ${color}; font-family:${font.value};">If you don't want to receive future editions of Codú Weekly</p>
-                      <a href="[unsubscribe]" style="display:block; padding-bottom:16px; color:${linkcolor}; font-family:${font.value}">Click here to unsubscribe</a>
+                      <a href="[unsubscribe_url_href_only]" style="display:block; padding-bottom:16px; color:${linkcolor}; font-family:${font.value}">Click here to unsubscribe</a>
                     </td>
                   </tr>
                   <tr>
