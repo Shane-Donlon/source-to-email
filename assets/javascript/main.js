@@ -431,7 +431,7 @@ function working() {
                 <tr>
                 
                   <td class="wrapper email-content">
-                  <a href="[read_only_href_only]" style="display:block; padding-bottom:16px; color:${linkcolor}; font-family:${font.value}">Read Online</a>
+                  <a href="[read_online_href_only]" style="display:block; padding-bottom:16px; color:${linkcolor}; font-family:${font.value}">Read Online</a>
                   </td>
                 </tr>
   
